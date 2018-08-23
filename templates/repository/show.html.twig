@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% import '_includes/google_chart_macros.js.twig' as charts %}
+
+{% block title %}Repositorio {{ owner }}/{{ repo }}{% endblock %}
+
+{#{% block javascripts %}#}
+
+    {#<!--Load the AJAX API-->#}
+    {#<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>#}
+    {#<script type="text/javascript">#}
+
+        {#// Load the Visualization API and the corechart package.#}
+        {#google.charts.load('current', {'packages':['corechart']});#}
+
+        {#// Set a callback to run when the Google Visualization API is loaded.#}
+        {#google.charts.setOnLoadCallback(drawChart);#}
+
+        {#// Callback that creates and populates a data table,#}
+        {#// instantiates the pie chart, passes in the data and#}
+        {#// draws it.#}
+        {#function drawChart() {#}
+            {#{{ charts.pie_chart('pie', [#}
+                {#{name: 'test', value: 2},#}
+                {#{name: 'foo', value: 5}#}
+            {#], 'Pie demo chart') }}#}
+
+            {#{{ charts.bar_chart('bar', [#}
+                {#{name: 'test', value: 6},#}
+                {#{name: 'foo', value: 1}#}
+            {#], 'Bar demo chart') }}#}
+        {#}#}
+    {#</script>#}
+{#{% endblock %}#}
+
+{% block body %}
+    {{ parent() }}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Repositorio {{ owner }}/{{ repo }}</h1>
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <p>Tiene {{ issues|length }} issues</p>
+    <ul>
+    {% for issue in issues %}
+        <li>
+            {{ issue.title }}
+            {{ print_issue_new(issue) }}
+            {% if issue is pull_request %}
+                (PR)
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.title) }}
+    {{ form_row(form.type) }}
+    {{ form_row(form.repo) }}
+
+    {{ form_end(form) }}
+
+
+    {#<h2>Gráficos</h2>#}
+    {#<div id="pie"></div>#}
+    {#<div id="bar"></div>#}
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% macro pie_chart(target, rows, title) %}
+    (function () {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Field');
+        data.addColumn('number', 'Value');
+        data.addRows([
+        {% for row in rows %}
+            ['{{ row.name|e('js') }}', {{ row.value }}]{{ not loop.last ? ',' }}
+        {% endfor %}
+        ]);
+
+        // Set chart options
+        var options = {'title':'{{ title|e('js') }}',
+        'width':400,
+        'height':300
+        };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(
+            document.getElementById('{{ target }}')
+        );
+        chart.draw(data, options);
+    })();
+{% endmacro %}
+
+{% macro bar_chart(target, rows, title) %}
+    (function () {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Field');
+        data.addColumn('number', 'Value');
+        data.addRows([
+        {% for row in rows %}
+            ['{{ row.name|e('js') }}', {{ row.value }}]{{ not loop.last ? ',' }}
+        {% endfor %}
+        ]);
+
+        // Set chart options
+        var options = {'title':'{{ title|e('js') }}',
+        'width':400,
+        'height':300
+        };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(
+            document.getElementById('{{ target }}')
+        );
+        chart.draw(data, options);
+    })();
+{% endmacro %}
+
+
+

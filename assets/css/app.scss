@@ -1,0 +1,13 @@
+$warning: darken(#b01cca, 20%);
+
+@import "~bootstrap/scss/bootstrap";
+
+$title-color: blue;
+
+body {
+    background-color: lightgray;
+
+    h1 {
+        color: $title-color;
+    }
+}
