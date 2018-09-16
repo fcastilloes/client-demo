@@ -13,7 +13,7 @@
         {% include '_includes/logged_user.html.twig' %}
     {% endif %}
     <div>
-        <button>Identificación con GitHub</button>
+        <a href="{{ path('auth_request') }}">Identificación con GitHub</a>
     </div>
 </div>
 {% endblock %}
